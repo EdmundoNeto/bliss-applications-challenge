@@ -5,10 +5,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.edmundo.blisschallenge.BR
 import com.edmundo.blisschallenge.R
-import com.edmundo.blisschallenge.databinding.ActivityMainBinding
-import com.edmundo.blisschallenge.general.EmojiNavigator
+import com.edmundo.blisschallenge.general.abstraction.ActivityNavigator
 import com.edmundo.blisschallenge.general.extensions.bindingContentView
 import com.edmundo.blisschallenge.general.extensions.observe
+import com.edmundo.blisschallenge.general.extensions.setThumbnail
+import com.edmundo.blisschallenge.github.viewmodel.GithubAvatarViewModel
 import com.edmundo.blisschallenge.github.viewmodel.GithubEmojiViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,8 +19,9 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<GithubEmojiViewModel>()
+    private val avatarViewModel by viewModels<GithubAvatarViewModel>()
     @Inject
-    lateinit var emojiNavigator: EmojiNavigator
+    lateinit var activityNavigator: ActivityNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,20 +31,45 @@ class MainActivity : AppCompatActivity() {
             lifecycleOwner = this@MainActivity
         }
 
-
+        setupObservable()
         setupView()
     }
 
-    private fun setupView() {
+    private fun setupObservable() {
         viewModel.getEmojiList()
+
+        avatarViewModel.run {
+            observe(githubUserAvatar) {
+                it?.run {
+                    ivEmoji.setThumbnail(this)
+                }
+            }
+        }
+    }
+
+    private fun setupView() {
 
         btnRandomEmoji.setOnClickListener {
             viewModel.getRandomEmojiFromList()
         }
 
         btnEmojiList.setOnClickListener {
-            emojiNavigator.openEmojiActivity(this)
+            activityNavigator.openEmojiActivity(this)
         }
+
+        btnSearchAvatar.setOnClickListener {
+            avatarViewModel.getAvatarUser(etSearchAvatar.text.toString())
+        }
+
+        btnAvatarList.setOnClickListener {
+            activityNavigator.openAvatarActivity(this)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setupView()
+        setupObservable()
     }
 
 }

@@ -10,5 +10,6 @@
     <string name="error_button_text">Refresh</string>
 
     <string name="no_emojis_found">Sorry. No emojis found!</string>
+    <string name="no_avatars_found">Sorry. No avatars found!</string>
 
 </resources>

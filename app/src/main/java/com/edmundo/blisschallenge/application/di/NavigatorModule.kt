@@ -1,6 +1,6 @@
 package com.edmundo.blisschallenge.application.di
 
-import com.edmundo.blisschallenge.general.EmojiNavigator
+import com.edmundo.blisschallenge.general.abstraction.ActivityNavigator
 import com.edmundo.blisschallenge.application.MainNavigator
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,7 @@ class NavigatorModule {
 
     @Provides
     @Singleton
-    fun provideMainNavigator(): EmojiNavigator {
+    fun provideMainNavigator(): ActivityNavigator {
         return MainNavigator()
     }
 

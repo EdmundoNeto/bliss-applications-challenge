@@ -1,70 +1,71 @@
 package com.edmundo.blisschallenge.domain.model
 
+import com.edmundo.blisschallenge.general.abstraction.IAvatarResponse
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class AvatarResponse(
     @JsonProperty("avatar_url")
-    val avatarUrl: String?,
+    override val avatarUrl: String? = null,
     @JsonProperty("bio")
-    val bio: Any?,
+    override val bio: Any? = null,
     @JsonProperty("blog")
-    val blog: String?,
+    override val blog: String? = null,
     @JsonProperty("company")
-    val company: Any?,
+    override val company: Any? = null,
     @JsonProperty("created_at")
-    val createdAt: String?,
+    override val createdAt: String? = null,
     @JsonProperty("email")
-    val email: String?,
+    override val email: String? = null,
     @JsonProperty("events_url")
-    val eventsUrl: String?,
+    override val eventsUrl: String? = null,
     @JsonProperty("followers")
-    val followers: Int?,
+    override val followers: Int? = null,
     @JsonProperty("followers_url")
-    val followersUrl: String?,
+    override val followersUrl: String? = null,
     @JsonProperty("following")
-    val following: Int?,
+    override val following: Int? = null,
     @JsonProperty("following_url")
-    val followingUrl: String?,
+    override val followingUrl: String? = null,
     @JsonProperty("gists_url")
-    val gistsUrl: String?,
+    override val gistsUrl: String? = null,
     @JsonProperty("gravatar_id")
-    val gravatarId: String?,
+    override val gravatarId: String? = null,
     @JsonProperty("hireable")
-    val hireable: Any?,
+    override val hireable: Any? = null,
     @JsonProperty("html_url")
-    val htmlUrl: String?,
+    override val htmlUrl: String? = null,
     @JsonProperty("id")
-    val id: Int?,
+    override val id: Int? = null,
     @JsonProperty("location")
-    val location: String?,
+    override val location: String? = null,
     @JsonProperty("login")
-    val login: String?,
+    override val login: String? = null,
     @JsonProperty("name")
-    val name: String?,
+    override val name: String? = null,
     @JsonProperty("node_id")
-    val nodeId: String?,
+    override val nodeId: String? = null,
     @JsonProperty("organizations_url")
-    val organizationsUrl: String?,
+    override val organizationsUrl: String? = null,
     @JsonProperty("public_gists")
-    val publicGists: Int?,
+    override val publicGists: Int? = null,
     @JsonProperty("public_repos")
-    val publicRepos: Int?,
+    override val publicRepos: Int? = null,
     @JsonProperty("received_events_url")
-    val receivedEventsUrl: String?,
+    override val receivedEventsUrl: String? = null,
     @JsonProperty("repos_url")
-    val reposUrl: String?,
+    override val reposUrl: String? = null,
     @JsonProperty("site_admin")
-    val siteAdmin: Boolean?,
+    override val siteAdmin: Boolean? = null,
     @JsonProperty("starred_url")
-    val starredUrl: String?,
+    override val starredUrl: String? = null,
     @JsonProperty("subscriptions_url")
-    val subscriptionsUrl: String?,
+    override val subscriptionsUrl: String? = null,
     @JsonProperty("twitter_username")
-    val twitterUsername: Any?,
+    override val twitterUsername: Any? = null,
     @JsonProperty("type")
-    val type: String?,
+    override val type: String? = null,
     @JsonProperty("updated_at")
-    val updatedAt: String?,
+    override val updatedAt: String? = null,
     @JsonProperty("url")
-    val url: String?
-)
+    override val url: String? = null
+): IAvatarResponse
