@@ -15,6 +15,6 @@ interface EmojiDao {
     suspend fun save(emojis: List<EmojiEntity>)
 
     @Query("SELECT * FROM emojientity")
-    fun getAllEmoji(): List<EmojiEntity>
+    suspend fun getAllEmoji(): List<EmojiEntity>
 
 }

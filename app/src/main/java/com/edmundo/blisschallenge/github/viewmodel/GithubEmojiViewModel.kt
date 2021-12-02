@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.edmundo.blisschallenge.domain.mapper.EmojiMapperApiDataToRoom
 import com.edmundo.blisschallenge.general.abstraction.BaseViewModel
 import com.edmundo.blisschallenge.general.abstraction.IEmoji
 import com.edmundo.blisschallenge.general.abstraction.IEmojiEntity
@@ -32,13 +33,14 @@ class GithubEmojiViewModel @Inject constructor(
     }
 
     private fun validateData() {
-        if(_githubEmojiList.value == null)
+        if (_githubEmojiList.value == null)
             noGithubEmojiListFoundVisibility.value = getVisibility(true)
     }
 
     private fun clearEmptyWarning() {
         noGithubEmojiListFoundVisibility.value = getVisibility(false)
     }
+
 
     fun getEmojiList() {
         clearEmptyWarning()
@@ -47,11 +49,32 @@ class GithubEmojiViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
+                val emojisFromDb = repository.getEmojisFromDb()
+
+                if (emojisFromDb.isEmpty()) {
+                    getEmojisFromApi()
+                } else {
+                    _githubEmojiList.value =
+                        emojisFromDb.map { EmojiMapperApiDataToRoom.toApiData(it) }
+                    setState(State.SUCCESS)
+                }
+
+
+            } catch (ex: Exception) {
+                setState(State.ERROR)
+            }
+        }
+    }
+
+    private fun getEmojisFromApi() {
+        viewModelScope.launch {
+            try {
                 val emojiResponse = repository.getEmojis()
 
-                if(emojiResponse.emojiList.isEmpty())
+                if (emojiResponse.emojiList.isEmpty())
                     setState(State.ERROR)
                 else {
+                    repository.saveEmojisFromApiToDb(emojiResponse.emojiList)
                     _githubEmojiList.value = emojiResponse.emojiList
                     validateData()
 

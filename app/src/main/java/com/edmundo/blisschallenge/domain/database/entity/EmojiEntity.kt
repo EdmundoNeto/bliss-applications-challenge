@@ -7,6 +7,6 @@ import com.edmundo.blisschallenge.general.abstraction.IEmojiEntity
 
 @Entity
 data class EmojiEntity(
-    @PrimaryKey override val id: Int,
+    @PrimaryKey(autoGenerate = true) override val id: Int? = null,
     @ColumnInfo(name = "url") override val url: String
 ) : IEmojiEntity
