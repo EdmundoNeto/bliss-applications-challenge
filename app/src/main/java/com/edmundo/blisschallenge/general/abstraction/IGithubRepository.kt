@@ -1,8 +1,9 @@
 package com.edmundo.blisschallenge.general.abstraction
 
+import com.edmundo.blisschallenge.domain.model.EmojiResponse
 import kotlinx.coroutines.flow.Flow
 
 interface IGithubRepository {
-    fun getEmojis(): Flow<List<IEmojiEntity>>
-    fun getEmojisFromDb(): Flow<List<IEmojiEntity>>
+    suspend fun getEmojis(): EmojiResponse
+    suspend fun getEmojisFromDb(): List<IEmojiEntity>
 }

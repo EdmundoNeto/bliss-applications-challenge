@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Bliss Challenge</string>
+
+    <string name="random_emoji">Random emoji</string>
+    <string name="emoji_list">Emoji list</string>
+    <string name="avatar_list">Avatar list</string>
+    <string name="google_repos">Google Repos</string>
+    <string name="error_title">Oooops!</string>
+    <string name="error_body">Feel lost and unconnected, like you are on a deserted island? Follow the advice, keep calm, light a fire, and keep refreshing.</string>
+    <string name="error_button_text">Refresh</string>
+
+    <string name="no_emojis_found">Sorry. No emojis found!</string>
+
 </resources>
