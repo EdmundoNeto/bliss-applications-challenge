@@ -29,6 +29,18 @@ class GithubEmojisActivity : AppCompatActivity() {
             setVariable(BR.githubEmojiViewModel, viewModel)
             lifecycleOwner = this@GithubEmojisActivity
         }
+
+        setupView()
+    }
+
+    private fun setupView() {
+        emojisAdapter.setOnItemClickListener {
+            emojisAdapter.notifyItemRemoved(it)
+        }
+
+        srRefreshList.setOnRefreshListener {
+            viewModel.getEmojiList()
+        }
     }
 
     private fun setupObservable() {
@@ -38,9 +50,16 @@ class GithubEmojisActivity : AppCompatActivity() {
             observe(githubEmojiList) {
                 it?.run {
                     emojisAdapter.setEmojiList(this)
+                    finishRefreshing()
                 }
             }
+        }
+    }
 
+    private fun finishRefreshing() {
+        with(srRefreshList) {
+            if(isRefreshing)
+                isRefreshing = false
         }
     }
 
@@ -49,10 +68,6 @@ class GithubEmojisActivity : AppCompatActivity() {
             this.adapter = emojisAdapter
             layoutManager = StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL)
             itemAnimator = DefaultItemAnimator()
-        }
-
-        emojisAdapter.setOnItemClickListener {
-            emojisAdapter.notifyItemRemoved(it)
         }
     }
 
