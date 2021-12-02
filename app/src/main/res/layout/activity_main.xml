@@ -3,11 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="githubEmojiViewModel"
+            type="com.edmundo.blisschallenge.github.viewmodel.GithubEmojiViewModel"
+            />
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FF6200EE"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".github.activity.MainActivity">
@@ -15,6 +21,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivEmoji"
             android:layout_width="100dp"
+            app:thumbnailUrl="@{githubEmojiViewModel.randomEmoji}"
             android:layout_height="100dp"
             android:adjustViewBounds="true" />
 

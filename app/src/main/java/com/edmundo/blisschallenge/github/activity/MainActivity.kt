@@ -3,6 +3,7 @@ package com.edmundo.blisschallenge.github.activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.edmundo.blisschallenge.BR
 import com.edmundo.blisschallenge.R
 import com.edmundo.blisschallenge.databinding.ActivityMainBinding
 import com.edmundo.blisschallenge.general.EmojiNavigator
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel by viewModels<GithubEmojiViewModel>()
     @Inject
     lateinit var emojiNavigator: EmojiNavigator
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         bindingContentView(R.layout.activity_main).run {
+            setVariable(BR.githubEmojiViewModel, viewModel)
             lifecycleOwner = this@MainActivity
         }
 
@@ -31,6 +34,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
+        viewModel.getEmojiList()
+
+        btnRandomEmoji.setOnClickListener {
+            viewModel.getRandomEmojiFromList()
+        }
+
         btnEmojiList.setOnClickListener {
             emojiNavigator.openEmojiActivity(this)
         }

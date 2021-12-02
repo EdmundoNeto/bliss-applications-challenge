@@ -28,6 +28,9 @@ class GithubEmojiViewModel @Inject constructor(
     private val _githubEmojiList: MutableLiveData<List<IEmoji>> = MutableLiveData()
     val githubEmojiList: LiveData<List<IEmoji>> = _githubEmojiList
 
+    private val _randomEmoji: MutableLiveData<String> = MutableLiveData()
+    val randomEmoji :LiveData<String> = _randomEmoji
+
     val noGithubEmojiListFoundVisibility = MutableLiveData<Int>().apply {
         value = View.GONE
     }
@@ -41,6 +44,9 @@ class GithubEmojiViewModel @Inject constructor(
         noGithubEmojiListFoundVisibility.value = getVisibility(false)
     }
 
+    fun getRandomEmojiFromList() {
+        _randomEmoji.value = _githubEmojiList.value?.random()?.url
+    }
 
     fun getEmojiList() {
         clearEmptyWarning()
@@ -59,7 +65,7 @@ class GithubEmojiViewModel @Inject constructor(
                     setState(State.SUCCESS)
                 }
 
-
+                getRandomEmojiFromList()
             } catch (ex: Exception) {
                 setState(State.ERROR)
             }
@@ -80,6 +86,7 @@ class GithubEmojiViewModel @Inject constructor(
 
                     setState(State.SUCCESS)
                 }
+
             } catch (ex: Exception) {
                 setState(State.ERROR)
             }
