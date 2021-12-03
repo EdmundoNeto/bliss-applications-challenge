@@ -2,7 +2,7 @@ package com.edmundo.blisschallenge.domain
 
 import com.edmundo.blisschallenge.domain.model.AvatarResponse
 import com.edmundo.blisschallenge.domain.model.EmojiResponse
-import com.edmundo.blisschallenge.domain.model.ReposResponse
+import com.edmundo.blisschallenge.domain.model.ReposResponseItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,10 +17,10 @@ interface GithubService {
     suspend fun getAvatar(@Path("login") login: String): Response<AvatarResponse>
 
     @GET("users/{login}/repos")
-    suspend fun getRepositories(
+    suspend fun getGoogleRepositories(
         @Path("login") login: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int
-    ): Response<ReposResponse>
+    ): Response<List<ReposResponseItem>>
 
 }

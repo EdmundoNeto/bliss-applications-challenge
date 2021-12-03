@@ -64,6 +64,10 @@ class MainActivity : AppCompatActivity() {
         btnAvatarList.setOnClickListener {
             activityNavigator.openAvatarActivity(this)
         }
+
+        btnGoogleRepos.setOnClickListener {
+            activityNavigator.openReposActivity(this)
+        }
     }
 
     override fun onStart() {

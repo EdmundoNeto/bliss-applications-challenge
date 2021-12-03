@@ -5,6 +5,7 @@ import android.content.Intent
 import com.edmundo.blisschallenge.general.abstraction.ActivityNavigator
 import com.edmundo.blisschallenge.github.activity.GithubAvatarsActivity
 import com.edmundo.blisschallenge.github.activity.GithubEmojisActivity
+import com.edmundo.blisschallenge.github.activity.GithubReposActivity
 
 class MainNavigator: ActivityNavigator {
 
@@ -14,5 +15,9 @@ class MainNavigator: ActivityNavigator {
 
     override fun openAvatarActivity(context: Context) {
         context.startActivity(Intent(context, GithubAvatarsActivity::class.java))
+    }
+
+    override fun openReposActivity(context: Context) {
+        context.startActivity(Intent(context, GithubReposActivity::class.java))
     }
 }

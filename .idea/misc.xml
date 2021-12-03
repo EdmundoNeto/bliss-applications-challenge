@@ -6,8 +6,10 @@
         <entry key="app/src/main/res/layout/activity_avatars.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_emojis.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_repos.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/item_avatar_viewholder.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/item_emoji_viewholder.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/item_repos_viewholder.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/layout_error.xml" value="0.234375" />
       </map>
     </option>

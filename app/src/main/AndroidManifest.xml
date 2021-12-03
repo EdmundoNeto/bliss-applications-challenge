@@ -29,6 +29,10 @@
             android:name=".github.activity.GithubAvatarsActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".github.activity.GithubReposActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

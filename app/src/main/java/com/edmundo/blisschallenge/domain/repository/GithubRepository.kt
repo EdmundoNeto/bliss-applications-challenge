@@ -4,9 +4,11 @@ import com.edmundo.blisschallenge.domain.GithubService
 import com.edmundo.blisschallenge.domain.database.dao.AvatarDao
 import com.edmundo.blisschallenge.domain.database.dao.EmojiDao
 import com.edmundo.blisschallenge.domain.database.entity.AvatarEntity
-import com.edmundo.blisschallenge.domain.mapper.AvatarMapperApiDataToRoom
 import com.edmundo.blisschallenge.domain.mapper.EmojiMapperApiDataToRoom
-import com.edmundo.blisschallenge.general.abstraction.*
+import com.edmundo.blisschallenge.general.abstraction.IAvatarEntity
+import com.edmundo.blisschallenge.general.abstraction.IEmoji
+import com.edmundo.blisschallenge.general.abstraction.IGithubRepository
+import com.edmundo.blisschallenge.general.abstraction.SafeRequest
 import javax.inject.Inject
 
 class GithubRepository @Inject constructor(
@@ -32,7 +34,12 @@ class GithubRepository @Inject constructor(
     override suspend fun getAllAvatarFromDb() = avatarDao.getAllAvatar()
 
     override suspend fun saveAvatarFromApiToDb(avatarResponse: IAvatarEntity) {
-        avatarDao.insertUserAvatar(AvatarEntity(login = avatarResponse.login, url = avatarResponse.url))
+        avatarDao.insertUserAvatar(
+            AvatarEntity(
+                login = avatarResponse.login,
+                url = avatarResponse.url
+            )
+        )
     }
 
     override suspend fun deleteAvatarFromDb(avatarEntity: IAvatarEntity) {
@@ -41,4 +48,11 @@ class GithubRepository @Inject constructor(
 
     override suspend fun getAvatarUserFromDb(login: String) = avatarDao.getUserAvatar(login)
 
+    override suspend fun getGoogleRepositories(
+        login: String,
+        page: Int,
+        perPage: Int
+    ) = apiRequest {
+        service.getGoogleRepositories(login, page, perPage)
+    }
 }
