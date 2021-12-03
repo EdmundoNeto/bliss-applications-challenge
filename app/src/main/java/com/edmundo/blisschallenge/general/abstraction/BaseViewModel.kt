@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.edmundo.blisschallenge.general.utils.State
 
-
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     //Control loader view visibility
     val mainLoaderVisibility = MutableLiveData<Int>().apply {
         value = View.GONE

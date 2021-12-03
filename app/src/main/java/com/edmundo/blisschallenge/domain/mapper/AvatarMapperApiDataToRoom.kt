@@ -8,8 +8,8 @@ import com.edmundo.blisschallenge.general.abstraction.*
 
 object AvatarMapperApiDataToRoom : IMapperApiDataToRoom<IAvatarResponse, IAvatarEntity>,
     IMapperRoomToApiData<IAvatarEntity, IAvatarResponse> {
-    override fun toRoom(apidata: IAvatarResponse) =
+    override fun toRoom(apidata: IAvatarResponse): IAvatarEntity =
         AvatarEntity(login = apidata.login.orEmpty(), apidata.avatarUrl.orEmpty())
 
-    override fun toApiData(room: IAvatarEntity) = AvatarResponse(login = room.login, avatarUrl = room.url)
+    override fun toApiData(room: IAvatarEntity): IAvatarResponse = AvatarResponse(login = room.login, avatarUrl = room.url)
 }

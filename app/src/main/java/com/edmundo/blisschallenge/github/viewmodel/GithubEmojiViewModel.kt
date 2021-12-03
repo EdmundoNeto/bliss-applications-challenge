@@ -9,10 +9,7 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.edmundo.blisschallenge.domain.mapper.EmojiMapperApiDataToRoom
-import com.edmundo.blisschallenge.general.abstraction.BaseViewModel
-import com.edmundo.blisschallenge.general.abstraction.IEmoji
-import com.edmundo.blisschallenge.general.abstraction.IEmojiEntity
-import com.edmundo.blisschallenge.general.abstraction.IGithubRepository
+import com.edmundo.blisschallenge.general.abstraction.*
 import com.edmundo.blisschallenge.general.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GithubEmojiViewModel @Inject constructor(
-    private val repository: IGithubRepository
+    private val repository: IGithubRepository,
+    private val iMapperApiDataToRoom: IMapperApiDataToRoom<IEmoji, IEmojiEntity>,
+    private val iMapperRoomToApiData: IMapperRoomToApiData<IEmojiEntity, IEmoji>
 ) : BaseViewModel() {
 
     private val _githubEmojiList: MutableLiveData<List<IEmoji>> = MutableLiveData()
@@ -61,7 +60,7 @@ class GithubEmojiViewModel @Inject constructor(
                     getEmojisFromApi()
                 } else {
                     _githubEmojiList.value =
-                        emojisFromDb.map { EmojiMapperApiDataToRoom.toApiData(it) }
+                        emojisFromDb.map { iMapperRoomToApiData.toApiData(it) }
                     setState(State.SUCCESS)
                 }
 

@@ -11,5 +11,5 @@ object EmojiMapperApiDataToRoom : IMapperApiDataToRoom<IEmoji, IEmojiEntity>,
     IMapperRoomToApiData<IEmojiEntity, IEmoji> {
     override fun toRoom(apidata: IEmoji) = EmojiEntity(url = apidata.url)
 
-    override fun toApiData(room: IEmojiEntity) =  EmojiResponse.Emoji(room.url)
+    override fun toApiData(room: IEmojiEntity): IEmoji =  EmojiResponse.Emoji(room.url)
 }

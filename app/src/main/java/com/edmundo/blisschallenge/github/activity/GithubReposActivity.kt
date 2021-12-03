@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.edmundo.blisschallenge.R
 import com.edmundo.blisschallenge.general.extensions.bindingContentView
 import com.edmundo.blisschallenge.general.extensions.observe

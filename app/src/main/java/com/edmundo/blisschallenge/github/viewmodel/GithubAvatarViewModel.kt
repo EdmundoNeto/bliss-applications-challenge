@@ -6,21 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.edmundo.blisschallenge.domain.mapper.AvatarMapperApiDataToRoom
-import com.edmundo.blisschallenge.domain.mapper.EmojiMapperApiDataToRoom
-import com.edmundo.blisschallenge.general.abstraction.BaseViewModel
-import com.edmundo.blisschallenge.general.abstraction.IAvatarResponse
-import com.edmundo.blisschallenge.general.abstraction.IEmoji
-import com.edmundo.blisschallenge.general.abstraction.IGithubRepository
+import com.edmundo.blisschallenge.general.abstraction.*
 import com.edmundo.blisschallenge.general.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 import javax.inject.Inject
 
 @HiltViewModel
 class GithubAvatarViewModel @Inject constructor(
-    private val repository: IGithubRepository
+    private val repository: IGithubRepository,
+    private val iMapperRoomToApiData: IMapperRoomToApiData<IAvatarEntity, IAvatarResponse>,
+    private val iMapperApiDataToRoom: IMapperApiDataToRoom<IAvatarResponse, IAvatarEntity>
 ) : BaseViewModel() {
 
     private val _githubUserAvatar: MutableLiveData<String> = MutableLiveData()
@@ -58,9 +55,7 @@ class GithubAvatarViewModel @Inject constructor(
                     setState(State.ERROR)
                 } else {
                     _githubAvatarList.postValue(avatarsFromDb.map {
-                        AvatarMapperApiDataToRoom.toApiData(
-                            it
-                        )
+                        iMapperRoomToApiData.toApiData(it)
                     })
                     setState(State.SUCCESS)
                 }
@@ -75,7 +70,7 @@ class GithubAvatarViewModel @Inject constructor(
     fun removeAvatarFromList(iAvatarResponse: IAvatarResponse) {
         viewModelScope.launch(Dispatchers.IO)  {
             try {
-                repository.deleteAvatarFromDb(AvatarMapperApiDataToRoom.toRoom(iAvatarResponse))
+                repository.deleteAvatarFromDb(iMapperApiDataToRoom.toRoom(iAvatarResponse))
                 _githubAvatarItemRemoved.postValue(true)
             } catch (ex: Exception) {
                 Log.d("avatar: ", "${ex.message}")
@@ -94,7 +89,7 @@ class GithubAvatarViewModel @Inject constructor(
                 } else {
                     val avatartUserFromDb =
                         repository.getAvatarUserFromDb(login)?.let {
-                            AvatarMapperApiDataToRoom.toApiData(
+                            iMapperRoomToApiData.toApiData(
                                 it
                             )
                         }
@@ -118,7 +113,7 @@ class GithubAvatarViewModel @Inject constructor(
                 val avatarResponse = repository.getAvatar(login)
 
                 if (avatarResponse.avatarUrl?.isNotEmpty() == true) {
-                    repository.saveAvatarFromApiToDb(AvatarMapperApiDataToRoom.toRoom(avatarResponse))
+                    repository.saveAvatarFromApiToDb(iMapperApiDataToRoom.toRoom(avatarResponse))
                     _githubUserAvatar.postValue(avatarResponse.avatarUrl)
 
                 }

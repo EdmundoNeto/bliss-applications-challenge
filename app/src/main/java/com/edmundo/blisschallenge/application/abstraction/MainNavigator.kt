@@ -1,4 +1,4 @@
-package com.edmundo.blisschallenge.application
+package com.edmundo.blisschallenge.application.abstraction
 
 import android.content.Context
 import android.content.Intent

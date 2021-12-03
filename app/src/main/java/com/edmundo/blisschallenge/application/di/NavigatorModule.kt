@@ -1,7 +1,7 @@
 package com.edmundo.blisschallenge.application.di
 
 import com.edmundo.blisschallenge.general.abstraction.ActivityNavigator
-import com.edmundo.blisschallenge.application.MainNavigator
+import com.edmundo.blisschallenge.application.abstraction.MainNavigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
